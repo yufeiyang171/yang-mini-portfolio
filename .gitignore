@@ -1,0 +1,6 @@
+node_modules
+dist
+.pnpm-store
+.DS_Store
+*.local
+小红书-首页迭代图片/

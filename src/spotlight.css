@@ -1,0 +1,153 @@
+:root {
+  color: #f8f4ec;
+  background: #000000;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-synthesis: none;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#spotlight-root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  background: #000000;
+}
+
+body {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.spotlight-page {
+  --spot-x: 55vw;
+  --spot-y: 60vh;
+  --beam-origin-x: 50vw;
+  --beam-origin-y: -20px;
+  --beam-angle: 0deg;
+  --beam-distance: 720px;
+  --beam-width: 620px;
+  --cone-a-x: 50vw;
+  --cone-a-y: -20px;
+  --cone-b-x: 35vw;
+  --cone-b-y: 72vh;
+  --cone-c-x: 75vw;
+  --cone-c-y: 56vh;
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(55, 23, 126, 0.22), transparent 52%),
+    #000000;
+  isolation: isolate;
+}
+
+.spotlight-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #000000;
+}
+
+.spotlight-art {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  user-select: none;
+  pointer-events: none;
+}
+
+.spotlight-art-dim {
+  z-index: 1;
+  filter: brightness(0.36) saturate(0.86) contrast(1.04);
+}
+
+.spotlight-art-lit {
+  z-index: 3;
+  filter: brightness(1.12) saturate(1.08) contrast(1.03);
+  clip-path: polygon(
+    var(--cone-a-x) var(--cone-a-y),
+    var(--cone-b-x) var(--cone-b-y),
+    var(--cone-c-x) var(--cone-c-y)
+  );
+}
+
+.spotlight-shadow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(55, 23, 126, 0.12), transparent 34%),
+    rgba(0, 0, 0, 0.52);
+}
+
+.spotlight-beam {
+  position: absolute;
+  top: var(--beam-origin-y);
+  left: var(--beam-origin-x);
+  z-index: 4;
+  width: var(--beam-width);
+  height: var(--beam-distance);
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(255, 224, 154, 0.22), transparent 38%),
+    linear-gradient(
+      180deg,
+      rgba(255, 205, 116, 0.22) 0%,
+      rgba(255, 165, 58, 0.18) 48%,
+      rgba(255, 116, 35, 0.04) 100%
+    );
+  clip-path: polygon(50% 0%, 4% 100%, 96% 100%);
+  filter: blur(20px);
+  mix-blend-mode: screen;
+  opacity: 0.92;
+  transform: translateX(-50%) rotate(var(--beam-angle));
+  transform-origin: 50% 0%;
+}
+
+.spotlight-hotspot {
+  position: absolute;
+  top: var(--spot-y);
+  left: var(--spot-x);
+  z-index: 5;
+  width: clamp(260px, 26vw, 520px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle, rgba(255, 244, 209, 0.26) 0 10%, rgba(255, 178, 73, 0.16) 28%, transparent 66%);
+  filter: blur(20px);
+  mix-blend-mode: screen;
+  opacity: 0.54;
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 760px) {
+  .spotlight-beam {
+    filter: blur(16px);
+    opacity: 0.82;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-beam,
+  .spotlight-hotspot,
+  .spotlight-art-lit,
+  .spotlight-shadow {
+    transition: none;
+  }
+}
