@@ -3,4 +3,5 @@ dist
 .pnpm-store
 .DS_Store
 *.local
+.openai/builds/
 小红书-首页迭代图片/
