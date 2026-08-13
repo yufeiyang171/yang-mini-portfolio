@@ -7,6 +7,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: "index.html",
+        black: "black.html",
         folderHome: "folder-home.html",
         projectRoom: "project-room.html",
         projectRoomClean: "project-room-clean.html",
